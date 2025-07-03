@@ -51,7 +51,8 @@ class PatientSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_by',)
 
     def get_created_by(self, obj):
-            return f"{obj.created_by.first_name} {obj.created_by.last_name}".strip()
+        # return f"{obj.created_by.first_name} {obj.created_by.last_name}".strip()
+        return Patient.objects.get(pk=obj.pk).created_by.username
 
 class MedicalRecordSerializer(serializers.ModelSerializer):
     patient = serializers.SerializerMethodField()
