@@ -10,6 +10,22 @@ from rest_framework.authentication import TokenAuthentication
 from django.core.exceptions import PermissionDenied
 
 # Create your views here.
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+
+@api_view(['GET'])
+def api_root(request):
+    return Response({
+        "message": "Hospital Management API",
+        "endpoints": {
+            "register": "/api/register/",
+            "login": "/api/login/",
+            "patients": "/api/patients/",
+            "add_record": "/api/patients/records/add",
+            "patient_records": "/api/patients/<id>/records/"
+        }
+    })
+
 class RegisterAPI(APIView):
     def post(self, request):
         serializer = RegisterSerializer(data=request.data)
